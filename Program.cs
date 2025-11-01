@@ -1,11 +1,18 @@
+using Mapster;
+using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 using Ticket.Data;
+using Ticket.Repository;
+using Ticket.Repository.IRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("sqlstring")));
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddSingleton(new TypeAdapterConfig());
+builder.Services.AddScoped<IMapper, ServiceMapper>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
