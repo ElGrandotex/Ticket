@@ -39,9 +39,9 @@ namespace Ticket.Repository
             return _db.Categories.OrderBy(c => c.Name).ToList();
         }
 
-        public Category GetCategory(int categoryId)
+        public Category? GetCategory(int categoryId)
         {
-            return _db.Categories.FirstOrDefault(c => c.Id == categoryId) ?? throw new InvalidOperationException("La categoria no existe");
+            return _db.Categories.FirstOrDefault(c => c.Id == categoryId);
         }
 
         public bool Save()

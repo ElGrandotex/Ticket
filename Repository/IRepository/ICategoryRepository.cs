@@ -5,7 +5,7 @@ namespace Ticket.Repository.IRepository
     public interface ICategoryRepository
     {
         ICollection<Category> GetCategories();
-        Category GetCategory(int categoryId);
+        Category? GetCategory(int categoryId);
         bool CategoryExists(int categoyId);
         bool CategoryExists(string categoryName);
         bool CreateCategory(Category category);
