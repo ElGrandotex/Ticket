@@ -7,9 +7,11 @@ namespace Ticket.Data
     {
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options)
         {
-
+            
         }
 
         public DbSet<Category> Categories { get; set; }
-    }
+        public DbSet<Event> Events { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        }
 }
