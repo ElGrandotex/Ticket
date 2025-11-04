@@ -1,6 +1,6 @@
 ﻿using Mapster;
 using Ticket.Models;
-using Ticket.Models.Dtos;
+using Ticket.Models.Dtos.Category;
 
 namespace Ticket.Mapping
 {

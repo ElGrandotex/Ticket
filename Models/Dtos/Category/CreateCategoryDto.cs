@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Ticket.Models.Dtos
+namespace Ticket.Models.Dtos.Category
 {
     public class CreateCategoryDto
     {

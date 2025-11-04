@@ -1,7 +1,7 @@
 ﻿using MapsterMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Ticket.Models.Dtos;
+using Ticket.Models.Dtos.Category;
 using Ticket.Repository.IRepository;
 
 namespace Ticket.Controllers
@@ -25,7 +25,7 @@ namespace Ticket.Controllers
         public IActionResult GetCategories()
         {
             var categorys = _categoryRepository.GetCategories();
-            var categorysDto = _mapper.Map<IEnumerable<Models.Dtos.CategoryDto>>(categorys);
+            var categorysDto = _mapper.Map<IEnumerable<CategoryDto>>(categorys);
             return Ok(categorysDto);
         }
 
@@ -41,7 +41,7 @@ namespace Ticket.Controllers
             {
                 return NotFound("La categoria no existe");
             }
-            var categoryDto = _mapper.Map<Models.Dtos.CategoryDto>(category);
+            var categoryDto = _mapper.Map<CategoryDto>(category);
             return Ok(categoryDto);
         }
 
