@@ -1,4 +1,5 @@
-﻿using Ticket.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Ticket.Data;
 using Ticket.Models;
 using Ticket.Repository.IRepository;
 
@@ -77,7 +78,7 @@ namespace Ticket.Repository
             {
                 throw new ArgumentException("Event ID must be greater than zero.");
             }
-            return _db.Events.FirstOrDefault(e => e.EventId == eventId);
+            return _db.Events.Include(e => e.Category).Include(e => e.Location).FirstOrDefault(e => e.EventId == eventId);
         }
 
         public Event? GetEventByName(string eventName)
@@ -95,17 +96,30 @@ namespace Ticket.Repository
             {
                 return new List<Event>();
             }
-            return _db.Events.Where(e => e.CategoryId == categoryId).OrderBy(e => e.Name).ToList();
+            return _db.Events.Where(e => e.CategoryId == categoryId).Include(e => e.Category).Include(e => e.Location).OrderBy(e => e.Name).ToList();
         }
 
         public ICollection<Event> GetEvents()
         {
-            return _db.Events.OrderBy(e => e.Name).ToList();
+            return _db.Events.Include(e => e.Category).Include(e => e.Location).OrderBy(e => e.Name).ToList();
         }
 
         public bool Save()
         {
             return _db.SaveChanges() >= 0;
+        }
+        public ICollection<Event> SearchEvents(string searchTerm)
+        {
+            IQueryable<Event> query = _db.Events;
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                query = query.Where(
+                    e => e.Name.ToLower().Trim().Contains(searchTerm.ToLower().Trim()) ||
+                    e.Description.ToLower().Trim().Contains(searchTerm.ToLower().Trim())
+                    )
+                    .Include(e => e.Category).Include(e => e.Location);
+            }
+            return query.OrderBy(e => e.Name).ToList();
         }
 
         public bool UpdateEvent(Event eventModel)
@@ -119,14 +133,5 @@ namespace Ticket.Repository
             return Save();
         }
 
-        ICollection<Event> SearchEvent(string eventName)
-        {
-            IQueryable<Event> query = _db.Events;
-            if (!string.IsNullOrWhiteSpace(eventName))
-            {
-                query = query.Where(e => e.Name.ToLower().Trim().Contains(eventName.ToLower().Trim()));
-            }
-            return query.OrderBy(e => e.Name).ToList();
-        }
     }
 }

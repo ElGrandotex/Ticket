@@ -11,6 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("sqlstring")));
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ILocationRepository, LocationRepository>();
+builder.Services.AddScoped<IEventRepository, EventRepository>();
 builder.Services.AddSingleton(new TypeAdapterConfig());
 builder.Services.AddScoped<IMapper, ServiceMapper>();
 builder.Services.AddControllers();

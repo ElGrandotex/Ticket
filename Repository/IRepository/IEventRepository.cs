@@ -10,7 +10,7 @@ namespace Ticket.Repository.IRepository
         bool EventExists(string eventName);
         Event? GetEventByName(string eventName);
         ICollection<Event> GetEventByCategory(int categoryId);
-        ICollection<Event> SearchEvent(string eventName);
+        ICollection<Event> SearchEvents(string searchTerm);
         bool BuyTickets(int eventId, int numberOfTickets);
         bool CreateEvent(Event eventModel);
         bool UpdateEvent(Event eventModel);
