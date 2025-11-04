@@ -8,7 +8,6 @@ namespace Ticket.Models.Dtos.Event
         public int EventId { get; set; }
         public string Name { get; set; } = string.Empty;
         public DateTime Date { get; set; }
-        public DateTime Time { get; set; }
         public string Description { get; set; } = string.Empty;
         public decimal Price { get; set; }
         public string ImgUrl { get; set; } = string.Empty;
@@ -18,8 +17,10 @@ namespace Ticket.Models.Dtos.Event
 
         // Foreign Key
         public int CategoryId { get; set; }
+        public string CategoryName { get; set; } = string.Empty;
 
         // Foreign Key
         public int LocationId { get; set; }
+        public string LocationName { get; set; } = string.Empty;
     }
 }

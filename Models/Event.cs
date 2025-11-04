@@ -12,7 +12,6 @@ namespace Ticket.Models
         [Required]
         public DateTime Date { get; set; }
         [Required]
-        public DateTime Time { get; set; }
         public string Description { get; set; } = string.Empty;
         [Required]
         [Range(0, double.MaxValue)]
