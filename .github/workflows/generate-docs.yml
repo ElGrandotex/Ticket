@@ -1,0 +1,29 @@
+name: Generate Documentation
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  generate-docs:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Detect Changes
+        run: |
+          git diff --name-only origin/main > changes.txt
+
+      - name: Generate Technical Docs
+        run: |
+          # Script que invoca prompts estructurados
+          python scripts/generate_docs.py
+
+      - name: Commit Docs
+        run: |
+          git config user.name "doc-bot"
+          git config user.email "doc@company.com"
+          git add docs/
+          git commit -m "Auto-update documentation"
+          git push
